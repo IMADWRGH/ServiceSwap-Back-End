@@ -9,13 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Seller{
+public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",updatable = false)
     private Integer userId;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
-private String firstName;
+    private String firstName;
     @Column(name = "last_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private String  lastName;
     @Column(name = "address",length = 50,nullable = false,columnDefinition = "VARCHAR(50) ")
@@ -26,8 +26,8 @@ private String firstName;
     private String phone;
     @Column(name = "sexe",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private String sexe;
-    @Column(name = "service_id",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
-    private Integer serviceId;
+    @Column(name = "nbr_order",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
+    private Integer nbrOrder;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
