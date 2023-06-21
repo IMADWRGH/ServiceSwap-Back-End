@@ -2,18 +2,25 @@ package com.ServiceSwap.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
+
+import java.util.List;
 
 
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "seller")
 public class Seller{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id",updatable = false)
-    private Integer userId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seller_id")
+    @SequenceGenerator(initialValue = 1, name = "seller_id", sequenceName = "seller_sequence")
+    @Column(name = "seller_id",updatable = false)
+    private Integer sellerId;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
 private String firstName;
     @Column(name = "last_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
@@ -28,7 +35,9 @@ private String firstName;
     private String sexe;
     @Column(name = "service_id",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private Integer serviceId;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(mappedBy = "review_seller",cascade = CascadeType.ALL)
+    private List<Reviews> reviewsList;
 }
