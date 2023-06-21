@@ -17,8 +17,7 @@ import java.util.List;
 @Table(name = "seller")
 public class Seller{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seller_id")
-    @SequenceGenerator(initialValue = 1, name = "seller_id", sequenceName = "seller_sequence")
+    @GeneratedValue
     @Column(name = "seller_id",updatable = false)
     private Integer sellerId;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
@@ -37,15 +36,10 @@ private String firstName;
     private Integer serviceId;
 
     //////relation//////////
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "review_seller",cascade = CascadeType.ALL)
-    private List<Reviews> reviewsList;
-
-    @OneToOne(mappedBy = "service_seller",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller",cascade = CascadeType.ALL)
+    private List<Reviews> reviews;
+    ///////////
+    @OneToOne(mappedBy = "seller",cascade = CascadeType.ALL)
     private Service service;
 
 

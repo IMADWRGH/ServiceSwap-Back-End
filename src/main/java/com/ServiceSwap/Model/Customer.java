@@ -17,8 +17,7 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id")
-    @SequenceGenerator(initialValue = 1, name = "customer_id", sequenceName = "customer_sequence")
+    @GeneratedValue
     @Column(name = "customer_id",updatable = false)
     private Integer customerId;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
@@ -35,10 +34,8 @@ public class Customer{
     private String sexe;
     @Column(name = "nbr_order",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private Integer nbrOrder;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-   @OneToMany(mappedBy = "review_customer",cascade = CascadeType.ALL)
-   @JsonIgnore
-   private List<Reviews> reviewsList;
+
+    /////relationship/////
+   @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+   private List<Reviews> reviews;
 }

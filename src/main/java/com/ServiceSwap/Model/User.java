@@ -3,6 +3,7 @@ package com.ServiceSwap.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Getter
 @Setter
 @ToString
@@ -13,7 +14,7 @@ import lombok.*;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id",updatable = false)
     private Integer id;
     @Column(name = "password",unique = true,nullable = false)
@@ -23,9 +24,15 @@ public class User {
     @Column(name = "status",nullable = false,updatable = false)
     private String status;
     @Column(name = "role",nullable = false,updatable = false)
-    private String role;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Role role;
+
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
     private Seller seller;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }

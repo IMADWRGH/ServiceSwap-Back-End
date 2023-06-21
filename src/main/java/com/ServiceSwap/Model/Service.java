@@ -15,8 +15,6 @@ import java.sql.Blob;
 @Table(name = "service")
 public class Service {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_id")
-    @SequenceGenerator(initialValue = 1, name = "service_id", sequenceName = "service_sequence")
     @Column(name = "service_id",updatable = false)
     private Integer serviceId;
     @Column(name = " description ",columnDefinition = "Text ")
