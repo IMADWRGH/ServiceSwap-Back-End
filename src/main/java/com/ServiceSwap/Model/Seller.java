@@ -35,9 +35,18 @@ private String firstName;
     private String sexe;
     @Column(name = "service_id",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private Integer serviceId;
+
+    //////relation//////////
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
     @OneToMany(mappedBy = "review_seller",cascade = CascadeType.ALL)
     private List<Reviews> reviewsList;
+
+    @OneToOne(mappedBy = "service_seller",cascade = CascadeType.ALL)
+    private Service service;
+
+
 }
