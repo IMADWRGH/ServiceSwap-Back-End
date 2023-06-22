@@ -26,7 +26,13 @@ public class Service {
     private String nameService;
     @Column(name = "price_service",nullable = false)
     private double priceService;
+
+
+    ////relationship
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
+
+    ///
+
 }

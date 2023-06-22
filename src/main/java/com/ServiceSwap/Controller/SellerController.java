@@ -34,7 +34,7 @@ public class SellerController {
     }
     @PutMapping("/seller/")
     public ResponseEntity<Seller> updateStudent(@RequestBody Seller seller) {
-        Optional<Seller> std = sellerRepository.findById(seller.getSellerId());
+        Optional<Seller> std = sellerRepository.findById(seller.getId());
         Seller stdUpdated = std.get();
         Seller studentUpdated = sellerRepository.save(stdUpdated);
         return new ResponseEntity<>(studentUpdated, HttpStatus.OK);
