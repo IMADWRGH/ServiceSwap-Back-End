@@ -2,16 +2,6 @@ package com.ServiceSwap.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Collection;
-
 
 @Getter
 @Setter
@@ -30,15 +20,17 @@ public class User  {
     private String email;
     @Column(name = "status",nullable = false,updatable = false)
     private String status;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "role",nullable = false,updatable = false)
     private Role role;
 
     //customer
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Customer customer;
     //seller
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Seller seller;
 

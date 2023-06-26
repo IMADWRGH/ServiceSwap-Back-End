@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "seller")
 public class Seller{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "seller_id",updatable = false)
     private Integer id;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")

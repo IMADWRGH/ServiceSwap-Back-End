@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id",updatable = false)
     private Integer id;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
@@ -45,7 +44,7 @@ public class Customer {
     @PrimaryKeyJoinColumn
     private User user;
     //reviews
-   @OneToMany(mappedBy = "customer")
+   @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
    private List<Reviews> reviews;
 
    //panel
