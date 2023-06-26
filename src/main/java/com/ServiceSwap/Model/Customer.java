@@ -18,8 +18,8 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue
-    @Column(name = "user_id",updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "customer_id",updatable = false)
     private Integer id;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private String firstName;
@@ -40,14 +40,17 @@ public class Customer {
     @UpdateTimestamp
     private Date dataUpdate;
     /////relationship/////
-   @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    //user
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private User user;
+    //reviews
+   @OneToMany(mappedBy = "customer")
    private List<Reviews> reviews;
 
+   //panel
    @OneToOne
    @JoinColumn(name = "panel_id")
     private Panel panel;
 
-    public void getFirstName(String firstName) {
-        this.firstName=firstName;
-    }
 }

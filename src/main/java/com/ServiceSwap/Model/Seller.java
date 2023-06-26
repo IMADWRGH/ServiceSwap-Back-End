@@ -18,8 +18,8 @@ import java.util.List;
 @Table(name = "seller")
 public class Seller{
     @Id
-    @GeneratedValue
-    @Column(name = "user_id",updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "seller_id",updatable = false)
     private Integer id;
     @Column(name = "first_name",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
     private String firstName;
@@ -43,9 +43,11 @@ public class Seller{
     private Integer serviceId;
 
     //////relation//////////
-    @OneToMany(mappedBy = "seller",cascade = CascadeType.ALL)
-    private List<Reviews> reviews;
-    ///////////
+    //user
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private User user;
+    //service
     @OneToOne(mappedBy = "seller",cascade = CascadeType.ALL)
     private Service service;
 

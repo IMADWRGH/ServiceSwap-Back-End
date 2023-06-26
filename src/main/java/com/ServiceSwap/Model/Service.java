@@ -3,18 +3,16 @@ package com.ServiceSwap.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Blob;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "service")
 public class Service {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "service_id",updatable = false)
     private Integer serviceId;
     @Column(name = " description ",columnDefinition = "Text ")
@@ -29,10 +27,17 @@ public class Service {
 
 
     ////relationship
+    //seller
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
-    ///
-
+    //panel
+    @ManyToOne
+    @JoinColumn(name = "panel_id")
+    private Panel panel;
+    //reviews
+    @ManyToOne
+    @JoinColumn(name = "review_id")
+    private  Reviews reviews;
 }

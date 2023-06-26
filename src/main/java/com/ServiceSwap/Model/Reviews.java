@@ -3,17 +3,17 @@ package com.ServiceSwap.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "reviews")
 public class Reviews {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "review_id")
     private Integer reviewId;
     @Column(name = "commentaire")
@@ -21,11 +21,12 @@ public class Reviews {
     @Column(name = "notation")
     private byte notation;
     ////relationship
-    @ManyToOne(fetch = FetchType.LAZY)
+    //customer
+    @ManyToOne
     @JoinColumn( name = "customer_id")
     private Customer customer;
-    ////
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn( name = "seller_id")
-    private Seller seller;
+    //service
+    @OneToMany(mappedBy = "reviews")
+    private List<Service> service;
+
 }

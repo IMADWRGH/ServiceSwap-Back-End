@@ -15,17 +15,17 @@ import java.util.List;
 @Table(name = "panel")
 public class Panel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "panel_id")
     private Integer panelId;
 
 
     ////relationship
+    //customer
     @OneToOne(mappedBy = "panel")
     private Customer customer;
-    ////
-    @OneToMany(mappedBy = "")
-    @JoinColumn(name = "service_id")
+    // service
+    @OneToMany(mappedBy = "panel")
     private List<Service> services;
 
 }
