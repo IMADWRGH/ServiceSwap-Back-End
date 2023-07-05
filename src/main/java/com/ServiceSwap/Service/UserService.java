@@ -13,41 +13,16 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class UserService implements UserDetails {
-    @Autowired
-    private UserRepository userRepository;
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+public class UserService{
+    private final UserRepository userRepository;
 
-    @Override
-    public String getPassword() {
-        return null;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
-
-    @Override
-    public String getUsername() {
-        return null;
+    public User save(User user){
+        return userRepository.save(user);
     }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
