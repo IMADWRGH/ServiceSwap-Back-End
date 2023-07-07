@@ -10,13 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "admin")
 public class Admin {
     @Id
     @Column(name = "admin_id",updatable = false)
     private Integer id;
-    @Column(name = "Admin_name")
-    private String name;
     @OneToOne
     @PrimaryKeyJoinColumn
     private User user;

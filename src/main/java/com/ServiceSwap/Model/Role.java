@@ -1,5 +1,5 @@
 package com.ServiceSwap.Model;
 
 public enum Role {
-    ADMIN,SELLER,CUSTOMER
+    USER,ADMIN,SELLER,CUSTOMER
 }

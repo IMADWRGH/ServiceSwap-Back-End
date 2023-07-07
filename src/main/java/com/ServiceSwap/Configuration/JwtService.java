@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private static final String SECRET_KEY="E2C11L67BQ7POERU01ZV40H3GTHVF97205ZX8FX2O7B2VNW8IP5TWASEWFIAW2RZPFJJ5FZBTA4AYKLMH0PQBOQARQ50G8LQ3UT3AQNAQLEY986VSPQQ7OREX70RTR613AY7EVIVSZCOSE65MPGU26005ZZ3YR7NM3V9PKTIYZTC1KCAVJD7DENPCEDR4343AU8APX9D42IZJVYKQCI143XWGHI3JOC9NAK74EX60HB9BXVJBXB0RA4BQOG7MN9I";
-    public String extractUserEmal(String jwt) {
+    public String extractUserEmail(String jwt) {
         return extractClaim(jwt,Claims::getSubject);
     }
     public <T> T extractClaim(String jwt , Function<Claims,T> claimsResolver){
@@ -39,7 +39,7 @@ public class JwtService {
     }
 
     public boolean isJwtValid(String jwt ,UserDetails userDetails){
-        final String userEmail =extractUserEmal(jwt);
+        final String userEmail =extractUserEmail(jwt);
         return (userEmail.equals(userDetails.getUsername())) && !isJwtExpired(jwt);
     }
 

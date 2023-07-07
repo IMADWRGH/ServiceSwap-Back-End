@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
     jwt=authHeader.substring(7);
-    userEmail=jwtService.extractUserEmal(jwt);//extract th email from JWT I need  class JwtService
+    userEmail=jwtService.extractUserEmail(jwt);//extract th email from JWT I need  class JwtService
         if (userEmail!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails=this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isJwtValid(jwt,userDetails)){
