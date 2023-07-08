@@ -2,46 +2,65 @@ package com.ServiceSwap.Service;
 
 import com.ServiceSwap.Model.Customer;
 import com.ServiceSwap.Model.Reviews;
+import com.ServiceSwap.Model.User;
 import com.ServiceSwap.Repository.CustomerRepository;
 import com.ServiceSwap.Repository.ReviewsRepository;
+import com.ServiceSwap.Repository.UserRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final ReviewsRepository reviewsRepository;
+    private final UserRepository userRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, ReviewsRepository reviewsRepository, UserRepository userRepository) {
         this.customerRepository = customerRepository;
+        this.reviewsRepository = reviewsRepository;
+        this.userRepository = userRepository;
     }
     public Customer registerCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
+    public List<Customer> allCustomer() {
+        return customerRepository.findAll();
+    }
     public Customer getCustomerById(Integer id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         return optionalCustomer.orElse(null);
     }
 
-    public Customer updateCustomer(Integer id, Customer updatedCustomer) {
+    public Customer updateCustomer(Integer id) throws Exception {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        if (optionalCustomer.isPresent()) {
+        Optional<User> optionalUser=userRepository.findById(id);
+        if (optionalUser.isPresent() && optionalCustomer.isPresent()) {
+            User user=optionalUser.get();
+            user.setFirstName(user.getFirstName());
+            user.setLastName(user.getLastName());
+            user.setPassword(user.getPassword());
             Customer customer = optionalCustomer.get();
-            // Update the customer properties as needed
-//            customer.setFirstName(updatedCustomer.getFirstName());
-//            customer.setLastName(updatedCustomer.getLastName());
-            // ... set other properties accordingly
+            customer.setAddress(customer.getAddress());
+            customer.setVille(customer.getVille());
+           customer.setPhone(customer.getPhone());
+            userRepository.save(user);
             return customerRepository.save(customer);
         } else {
-            return null;
+            throw new ChangeSetPersister.NotFoundException();
         }
     }
 
     public boolean deleteCustomer(Integer id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         if (optionalCustomer.isPresent()) {
-            customerRepository.delete(optionalCustomer.get());
+            Customer customer = optionalCustomer.get();
+            User user = customer.getUser();
+            customerRepository.delete(customer);
+            userRepository.delete(user);
             return true;
         } else {
             return false;
@@ -52,10 +71,8 @@ public class CustomerService {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
-            // Set the relationship between the customer and the review
             review.setCustomer(customer);
-            // Save the review
-//            return ReviewsRepository.save(review);
+            return reviewsRepository.save(review);
         } else {
             return null;
         }
