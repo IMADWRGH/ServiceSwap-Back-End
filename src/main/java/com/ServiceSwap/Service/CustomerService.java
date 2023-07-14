@@ -39,11 +39,11 @@ public class CustomerService {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         Optional<User> optionalUser=userRepository.findById(id);
         if (optionalUser.isPresent() && optionalCustomer.isPresent()) {
-            User user=optionalUser.get();
-            user.setFirstName(user.getFirstName());
-            user.setLastName(user.getLastName());
-            user.setPassword(user.getPassword());
             Customer customer = optionalCustomer.get();
+            User user=optionalUser.get();
+            if (user.getId().equals(customer.getId()))
+            user.setFullname(user.getFullname());
+            user.setPassword(user.getPassword());
             customer.setAddress(customer.getAddress());
             customer.setVille(customer.getVille());
            customer.setPhone(customer.getPhone());
