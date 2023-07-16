@@ -30,9 +30,17 @@ public class CustomerService {
     public List<Customer> allCustomer() {
         return customerRepository.findAll();
     }
-    public Customer getCustomerById(Integer id) {
+    public Customer getCustomerById(Integer id) throws Exception {
+        Optional<User> optionalUser=userRepository.findById(id);
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        return optionalCustomer.orElse(null);
+        Customer customer = optionalCustomer.get();
+        User user=optionalUser.get();
+        if (user.getId().equals(customer.getId())){
+            return optionalCustomer.orElse(null);
+        }else {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
     }
 
     public Customer updateCustomer(Integer id) throws Exception {
