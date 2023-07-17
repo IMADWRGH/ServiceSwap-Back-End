@@ -15,15 +15,19 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "service_id",updatable = false)
     private Integer serviceId;
-    @Column(name = " description ",columnDefinition = "Text ")
+    @Column(name = "name_service",nullable = false)
+    private String nameService;
+    @Column(name = " description",columnDefinition = "Text ")
     private String  description;
     @Lob
     @Column(name = "image",nullable = false,length = Integer.MAX_VALUE)
     private byte[] imgService;
-    @Column(name = "name_service",nullable = false)
-    private String nameService;
     @Column(name = "price_service",nullable = false)
     private double priceService;
+    @Column(name = "type_service")
+    private String type;
+    @Column(name = "status")
+    private String status;
 
 
     ////relationship

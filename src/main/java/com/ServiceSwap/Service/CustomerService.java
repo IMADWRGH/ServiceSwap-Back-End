@@ -23,6 +23,7 @@ public class CustomerService {
         this.reviewsRepository = reviewsRepository;
         this.userRepository = userRepository;
     }
+
     public Customer registerCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
@@ -30,37 +31,43 @@ public class CustomerService {
     public List<Customer> allCustomer() {
         return customerRepository.findAll();
     }
-    public Customer getCustomerById(Integer id) throws Exception {
-        Optional<User> optionalUser=userRepository.findById(id);
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        Customer customer = optionalCustomer.get();
-        User user=optionalUser.get();
-        if (user.getId().equals(customer.getId())){
-            return optionalCustomer.orElse(null);
-        }else {
-            throw new ChangeSetPersister.NotFoundException();
-        }
 
+    public Customer getCustomerById(Integer id) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        if (optionalUser.isPresent() && optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            User user = optionalUser.get();
+            if (user.getId().equals(customer.getId())) {
+                return optionalCustomer.orElse(null);
+            } else {
+                throw new ChangeSetPersister.NotFoundException();
+            }
+        }
+        return null;
     }
 
     public Customer updateCustomer(Integer id) throws Exception {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        Optional<User> optionalUser=userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent() && optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
-            User user=optionalUser.get();
-            if (user.getId().equals(customer.getId()))
-            user.setFullname(user.getFullname());
-            user.setPassword(user.getPassword());
-            customer.setAddress(customer.getAddress());
-            customer.setVille(customer.getVille());
-           customer.setPhone(customer.getPhone());
-            userRepository.save(user);
-            return customerRepository.save(customer);
-        } else {
-            throw new ChangeSetPersister.NotFoundException();
-        }
+            User user = optionalUser.get();
+            if (user.getId().equals(customer.getId())) {
+                user.setFullname(user.getFullname());
+                user.setPassword(user.getPassword());
+                customer.setAddress(customer.getAddress());
+                customer.setVille(customer.getVille());
+                customer.setPhone(customer.getPhone());
+                userRepository.save(user);
+                return customerRepository.save(customer);
+            }
+        } else throw new ChangeSetPersister.NotFoundException();
+
+        return null;
     }
+
+
 
     public boolean deleteCustomer(Integer id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);

@@ -20,14 +20,21 @@ public class Seller{
     @Id
     @Column(name = "seller_id",updatable = false)
     private Integer id;
+    @Lob
+    @Column(name = "image",nullable = false,length = Integer.MAX_VALUE)
+    private byte[] img;
     @Column(name = "address",length = 50,nullable = false,columnDefinition = "VARCHAR(50) ")
     private String address;
     @Column(name = "ville",length = 25,nullable = false,columnDefinition = "VARCHAR(25) ")
     private String Ville;
     @Column(name = "nbr_phone",length = 12,nullable = false,columnDefinition = "VARCHAR(12) ")
     private String phone;
-    @Column(name = "sexe",length = 20,nullable = false,columnDefinition = "VARCHAR(20) ")
+    @Column(name = "nbr_whatsapp",length = 12,nullable = false,columnDefinition = "VARCHAR(12) ")
+    private String whatsappNumber;
+    @Column(name = "sexe",length = 4,nullable = false,columnDefinition = "VARCHAR(4) ")
     private String sexe;
+    @Column(name = "website",length = 50,nullable = false,columnDefinition = "VARCHAR(50) ")
+    private String site;
     @Column(name = "created_at")
     @CreationTimestamp
     private Date dataCreate;

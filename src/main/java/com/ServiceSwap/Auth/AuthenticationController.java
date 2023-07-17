@@ -22,9 +22,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.login(request));
     }
 
-    @PostMapping("/sing-up")
-    public ResponseEntity<AuthenticationResponse>hhhh(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authenticationService.login(request));
-    }
+
 
 }

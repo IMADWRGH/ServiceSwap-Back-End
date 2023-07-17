@@ -20,7 +20,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id",updatable = false)
     private Integer id;
-    @Column(name = "full_name",length = 50,nullable = false,columnDefinition = "VARCHAR(20) ")
+    @Column(name = "full_name",length = 50,nullable = false,columnDefinition = "VARCHAR(50) ")
     private String fullname;
     @Column(name = "password",unique = true,nullable = false)
     private String password;

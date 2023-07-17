@@ -2,37 +2,46 @@ package com.ServiceSwap.Controller;
 
 
 import com.ServiceSwap.Model.Customer;
-import com.ServiceSwap.Repository.CustomerRepository;
+import com.ServiceSwap.Model.Reviews;
+import com.ServiceSwap.Service.CustomerService;
+import org.hibernate.dialect.function.SQLServerEveryAnyEmulation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+
+
 
 
 @CrossOrigin(origins = {"http//localhost:4200"})
+@RequestMapping(value="/api/customer")
 @RestController
 public class CustomerController {
-private final CustomerRepository customerRepository;
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+
+private final CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
-//    @GetMapping("/customer/")
-//    public ResponseEntity<List<Customer>> getCostomer(){
-//        List<Customer> customers =customerRepository.findAll();
-//        return new ResponseEntity<>(customers, HttpStatus.OK);
-//    }
-    @PostMapping("/customer/")
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Integer id) throws Exception {
+        Customer customer=customerService.getCustomerById(id);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+    @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer customer1 = customerRepository.save(customer);
+        Customer customer1 = customerService.registerCustomer(customer);
         return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
-    @PutMapping("/customer/")
-    public ResponseEntity<Customer> UpdateCustomer(@RequestBody Customer customer){
-        Optional<Customer> customer1=customerRepository.findById(customer.getId());
-        Customer updateCustomer =customer1.get();
-       // updateCustomer.getFirstName(customer.getFirstName());
-        Customer update = customerRepository.save(updateCustomer);
-        return new ResponseEntity<>(update, HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> UpdateCustomer( @PathVariable Integer id) throws Exception {
+        Customer customer1=customerService.updateCustomer(id);
+        return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
+
+   @PostMapping("/{id}")
+   public ResponseEntity<Reviews> addReview(@PathVariable Integer id ,@RequestBody Reviews review) {
+       Reviews reviews = customerService.insertReviewForCustomer(id,review);
+       return new ResponseEntity<>(reviews, HttpStatus.OK);
+   }
+
 
 }
