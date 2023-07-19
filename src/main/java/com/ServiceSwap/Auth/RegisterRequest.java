@@ -1,5 +1,6 @@
 package com.ServiceSwap.Auth;
 
+import com.ServiceSwap.Model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-private String address;
-    private String Ville;
-    private String phone;
-    private String sexe;
+    private String fullname;
+    private String email;
+    private  String password;
+    private Role role;
+
 }
