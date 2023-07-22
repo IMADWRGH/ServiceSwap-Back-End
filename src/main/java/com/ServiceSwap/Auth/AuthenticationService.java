@@ -73,7 +73,7 @@ public class AuthenticationService {
             seller.setAddress(request.getAddress());
             seller.setPhone(request.getPhone());
             sellerRepository.save(seller);
-        var jwtToken = jwtService.generateJwt(seller.getUser());
+        var jwtToken = jwtService.generateJwt(seller);
         return AuthenticationResponse.builder()
                 .jwt(jwtToken)
                 .build();
@@ -86,7 +86,7 @@ public class AuthenticationService {
             customer.setPhone(request.getPhone());
             customerRepository.save(customer);
 
-        var jwtToken = jwtService.generateJwt(customer.getUser());
+        var jwtToken = jwtService.generateJwt(customer);
         return AuthenticationResponse.builder()
                 .jwt(jwtToken)
                 .build();
