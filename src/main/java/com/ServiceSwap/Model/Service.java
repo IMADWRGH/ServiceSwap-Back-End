@@ -27,7 +27,7 @@ public class Service {
     @Column(name = "type_service")
     private String type;
     @Column(name = "status")
-    private String status;
+    private boolean status;
 
 
     ////relationship

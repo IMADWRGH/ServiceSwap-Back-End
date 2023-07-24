@@ -18,6 +18,9 @@ public class Services_Service {
         this.serviceRepository = serviceRepository;
         this.sellerRepository = sellerRepository;
     }
+    public List<String> getData(){
+        return serviceRepository.allServiceData();
+    }
     public com.ServiceSwap.Model.Service registerService(com.ServiceSwap.Model.Service service){
         return serviceRepository.save(service);
     }
@@ -25,8 +28,15 @@ public class Services_Service {
     public List<com.ServiceSwap.Model.Service> allServices(){
         return serviceRepository.findAll();
     }
-
-
+    public List<com.ServiceSwap.Model.Service> getByType(String type){
+        return serviceRepository.findByType(type);
+    }
+    public List<com.ServiceSwap.Model.Service> getServices(String name,String city,String type){
+        return serviceRepository.findByCityAndTypeAndName(name,city,type);
+    }
+    public Optional<com.ServiceSwap.Model.Service> getService(Integer id){
+        return serviceRepository.findById(id);
+    }
     public com.ServiceSwap.Model.Service updateService(Integer id) throws ChangeSetPersister.NotFoundException {
         Optional<com.ServiceSwap.Model.Service> optionalService = serviceRepository.findById(id);
         Optional<Seller> optionalSeller = sellerRepository.findById(id);
@@ -38,7 +48,7 @@ public class Services_Service {
                service.setImgService(service.getImgService());
                service.setPriceService(service.getPriceService());
                service.setDescription(service.getDescription());
-               service.setStatus(service.getStatus());
+               service.setStatus(service.isStatus());
                 return serviceRepository.save(service);
             }
         } else throw new ChangeSetPersister.NotFoundException();
