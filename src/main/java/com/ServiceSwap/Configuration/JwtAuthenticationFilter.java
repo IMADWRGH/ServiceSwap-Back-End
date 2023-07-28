@@ -28,15 +28,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          @NonNull HttpServletRequest request,
          @NonNull  HttpServletResponse response,
          @NonNull  FilterChain filterChain
-    ) throws ServletException, IOException { 
+    ) throws ServletException, IOException {
     final String authHeader =request.getHeader("Authorization");
-    final String jwt;
-    final String userEmail;
+        String jwt = "";
+        String userEmail = "";
+        System.out.println("authHeader: " + authHeader);
     if (authHeader==null || !authHeader.startsWith("Bearer ")){
         filterChain.doFilter(request,response);
+        return;
     }
     jwt=authHeader.substring(7);
-    userEmail=jwtService.extractUserEmail(jwt);//extract th email from JWT I need  class JwtService
+    System.out.println("jwt: " + jwt);
+    userEmail=jwtService.extractUserEmail(jwt);
+        System.out.println("userEmail: " + userEmail);//extract th email from JWT I need  class JwtService
         if (userEmail!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails=this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isJwtValid(jwt,userDetails)){

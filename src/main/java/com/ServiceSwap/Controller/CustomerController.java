@@ -26,11 +26,13 @@ private final CustomerService customerService;
         Customer customer=customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-    @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer customer1 = customerService.registerCustomer(customer);
-        return new ResponseEntity<>(customer1, HttpStatus.OK);
-    }
+
+//    @PostMapping
+//    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+//        Customer customer1 = customerService.registerCustomer(customer);
+//        return new ResponseEntity<>(customer1, HttpStatus.OK);
+//    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Customer> UpdateCustomer( @PathVariable Integer id) throws Exception {
         Customer customer1=customerService.updateCustomer(id);

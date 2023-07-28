@@ -27,7 +27,7 @@ public class AuthenticationService {
 
 
 
-    public AuthenticationResponse singup(RegisterRequest request){
+    public AuthenticationResponse singup(User request){
         if (request.getEmail() == null || request.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be empty");
         }
@@ -66,7 +66,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse register_seller(SellerRegisterRequest request) {
+    public AuthenticationResponse register_seller(Seller request) {
             Seller seller = new Seller();
             seller.setVille(request.getVille());
             seller.setSexe(request.getSexe());
@@ -78,7 +78,7 @@ public class AuthenticationService {
                 .jwt(jwtToken)
                 .build();
     }
-    public AuthenticationResponse register_customer(CustomerRegisterRequest request) {
+    public AuthenticationResponse register_customer(Customer request) {
             Customer customer = new Customer();
             customer.setVille(request.getVille());
             customer.setSexe(request.getSexe());

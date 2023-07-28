@@ -47,25 +47,25 @@ public class CustomerService {
         return null;
     }
 
-    public Customer updateCustomer(Integer id) throws Exception {
+    public Customer updateCustomer(Integer id, Customer updatedCustomer) throws ChangeSetPersister.NotFoundException {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent() && optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
             User user = optionalUser.get();
             if (user.getId().equals(customer.getId())) {
-                user.setFullname(user.getFullname());
-                user.setPassword(user.getPassword());
-                customer.setAddress(customer.getAddress());
-                customer.setVille(customer.getVille());
-                customer.setPhone(customer.getPhone());
+                user.setFullname(updatedCustomer.getUser().getFullname());
+                user.setPassword(updatedCustomer.getUser().getPassword());
+                customer.setAddress(updatedCustomer.getAddress());
+                customer.setVille(updatedCustomer.getVille());
+                customer.setPhone(updatedCustomer.getPhone());
                 userRepository.save(user);
                 return customerRepository.save(customer);
             }
-        } else throw new ChangeSetPersister.NotFoundException();
-
-        return null;
+        }
+        throw new ChangeSetPersister.NotFoundException();
     }
+
 
 
 
@@ -82,8 +82,8 @@ public class CustomerService {
         }
     }
 
-    public Reviews insertReviewForCustomer(Integer id, Reviews review) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+    public Reviews addReview(Integer customerId, Reviews review) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
             review.setCustomer(customer);

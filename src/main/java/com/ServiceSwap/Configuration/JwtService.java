@@ -39,8 +39,13 @@ public class JwtService {
     }
 
     public boolean isJwtValid(String jwt ,UserDetails userDetails){
-        final String userEmail =extractUserEmail(jwt);
-        return (userEmail.equals(userDetails.getUsername())) && !isJwtExpired(jwt);
+        System.out.println("userEmail: " + extractUserEmail(jwt));
+        System.out.println("isJwtExpired: " + isJwtExpired(jwt));
+
+        return extractUserEmail(jwt).equals(userDetails.getUsername()) && !isJwtExpired(jwt);
+
+//        final String userEmail =extractUserEmail(jwt);
+//        return (userEmail.equals(userDetails.getUsername())) && !isJwtExpired(jwt);
     }
 
     private boolean isJwtExpired(String jwt) {

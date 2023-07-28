@@ -1,12 +1,12 @@
 package com.ServiceSwap.Service;
 
-import com.ServiceSwap.Model.Customer;
-import com.ServiceSwap.Model.Reviews;
+
 import com.ServiceSwap.Model.Seller;
 import com.ServiceSwap.Model.User;
+
 import com.ServiceSwap.Repository.SellerRepository;
 import com.ServiceSwap.Repository.UserRepository;
-import org.hibernate.mapping.Selectable;
+
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +33,9 @@ public class SellerService {
      public Seller getSellerById(Integer id) throws ChangeSetPersister.NotFoundException {
          Optional<Seller> sellerOptional = sellerRepository.findById(id);
          if (sellerOptional.isPresent()) {
-             Seller seller = sellerOptional.get();
-             return sellerRepository.save(seller);
+//             Seller seller = sellerOptional.get();
+//             return sellerRepository.save(seller);
+             return sellerOptional.get();
          }
          else {
              throw new ChangeSetPersister.NotFoundException();
@@ -52,32 +53,36 @@ public class SellerService {
             return false;
         }
     }
-    public Seller updateSeller(Integer id)throws Exception{
-        Optional<Seller> sellerOptional=sellerRepository.findById(id);
-        Optional<User> optionalUser=userRepository.findById(id);
-        if (sellerOptional.isPresent() && optionalUser.isPresent()){
-            Seller seller=sellerOptional.get();
-            User user=optionalUser.get();
-            if (user.getId().equals(seller.getId())){
-                user.setFullname(user.getFullname());
-                user.setPassword(user.getPassword());
-                seller.setVille(seller.getVille());
-                seller.setPhone(seller.getPhone());
-                seller.setAddress(seller.getAddress());
+    public Seller updateSeller(Integer id, Seller updatedSeller) throws ChangeSetPersister.NotFoundException {
+        Optional<Seller> sellerOptional = sellerRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (sellerOptional.isPresent() && optionalUser.isPresent()) {
+            Seller seller = sellerOptional.get();
+            User user = optionalUser.get();
+            if (user.getId().equals(seller.getId())) {
+                user.setFullname(updatedSeller.getUser().getFullname());
+                user.setPassword(updatedSeller.getUser().getPassword());
+                seller.setVille(updatedSeller.getVille());
+                seller.setPhone(updatedSeller.getPhone());
+                seller.setAddress(updatedSeller.getAddress());
                 userRepository.save(user);
                 return sellerRepository.save(seller);
             }
         }
         throw new ChangeSetPersister.NotFoundException();
     }
-//    public Reviews insertService(Integer id, Service service) {
-//        Optional<Seller> sellerOptional=sellerRepository.findById(id);
-//        if (optionalCustomer.isPresent()) {
-//            Customer customer = optionalCustomer.get();
-//            review.setCustomer(customer);
-//            return reviewsRepository.save(review);
-//        } else {
-//            return null;
-//        }
-//    }
+
+    public com.ServiceSwap.Model.Service AddService(Integer sellerId, com.ServiceSwap.Model.Service srv) throws ChangeSetPersister.NotFoundException {
+        Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
+        if (sellerOptional.isPresent()) {
+            Seller seller = sellerOptional.get();
+            srv.setSeller(seller);
+           seller.setService(srv);
+            sellerRepository.save(seller);
+            return srv;
+        } else {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+    }
+
 }

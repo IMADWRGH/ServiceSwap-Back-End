@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = {"http//localhost:4200"})
+//@CrossOrigin(origins = {"http//localhost:4200"})
 @RequestMapping(value="/api/services")
 @RestController
 public class ServiceController {
@@ -32,9 +32,9 @@ public class ServiceController {
     @GetMapping("/{id}")
     ResponseEntity<Service> getServicesType(@PathVariable Integer id){
         Optional<Service> service =services.getService(id);
-        return service.map(value ->  ResponseEntity.ok(value)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+        return service.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
-    @GetMapping()
+    @GetMapping
     public List<Service> getAllServices() {
         return services.allServices();
     }

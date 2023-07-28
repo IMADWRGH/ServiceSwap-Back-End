@@ -18,15 +18,19 @@ public class SellerController {
     public SellerController( SellerService sellerService) {
         this.sellerService = sellerService;
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Seller> getSeller(@PathVariable(name = "id") Integer id) throws Exception {
+        Seller sellerUpdated = sellerService.getSellerById(id);
+        return new ResponseEntity<>(sellerUpdated, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<Seller> createSeller(@RequestBody Seller seller){
         Seller seller1 =sellerService.registerSeller(seller);
         return new ResponseEntity<>(seller1,HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Seller> updateSeller(@PathVariable(name = "id") Integer id) throws Exception {
-        Seller sellerUpdated = sellerService.updateSeller(id);
+    public ResponseEntity<Seller> updateSeller(@PathVariable(name = "id") Integer id,@RequestBody Seller seller) throws Exception {
+        Seller sellerUpdated = sellerService.updateSeller(id,seller);
         return new ResponseEntity<>(sellerUpdated, HttpStatus.OK);
     }
 
