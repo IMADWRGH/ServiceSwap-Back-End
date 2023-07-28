@@ -72,7 +72,7 @@ public class SellerService {
         throw new ChangeSetPersister.NotFoundException();
     }
 
-    public com.ServiceSwap.Model.Service AddService(Integer sellerId, com.ServiceSwap.Model.Service srv) throws ChangeSetPersister.NotFoundException {
+    public com.ServiceSwap.Model.Service addService(Integer sellerId, com.ServiceSwap.Model.Service srv) throws ChangeSetPersister.NotFoundException {
         Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
         if (sellerOptional.isPresent()) {
             Seller seller = sellerOptional.get();

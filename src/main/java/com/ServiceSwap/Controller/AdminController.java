@@ -35,12 +35,16 @@ public class AdminController {
 
     ///////////////create//////////////
 
-    //can't create new Seller or  customer;
+    @PostMapping
+    public ResponseEntity<Seller> createSeller(@RequestBody Seller seller){
+        Seller seller1 =sellerService.registerSeller(seller);
+        return new ResponseEntity<>(seller1,HttpStatus.OK);
+    }
 
     ///////////////update//////////////
     @PutMapping("/customer/{id}")
-    public ResponseEntity<Customer> UpdateCustomer( @PathVariable Integer id) throws Exception {
-        Customer customer1=customerService.updateCustomer(id);
+    public ResponseEntity<Customer> UpdateCustomer( @PathVariable Integer id,@RequestBody Customer customer) throws Exception {
+        Customer customer1=customerService.updateCustomer(id,customer);
         return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
     ///////////////delete//////////////

@@ -1,11 +1,13 @@
 package com.ServiceSwap.Service;
 
 import com.ServiceSwap.Model.Customer;
+import com.ServiceSwap.Model.Panel;
 import com.ServiceSwap.Model.Reviews;
 import com.ServiceSwap.Model.User;
 import com.ServiceSwap.Repository.CustomerRepository;
 import com.ServiceSwap.Repository.ReviewsRepository;
 import com.ServiceSwap.Repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +93,12 @@ public class CustomerService {
         } else {
             return null;
         }
+    }
+    public Panel getPanelBYCustomerID(Integer id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Panel not found"));
+        if (customer != null) {
+            return customer.getPanel();
+        }
+        return null;
     }
 }

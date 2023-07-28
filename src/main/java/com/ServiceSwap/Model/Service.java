@@ -2,6 +2,10 @@ package com.ServiceSwap.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 
 @Getter
@@ -28,6 +32,12 @@ public class Service {
     private String type;
     @Column(name = "status")
     private boolean status;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date dataCreate;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date dataUpdate;
 
 
     ////relationship
