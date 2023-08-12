@@ -20,7 +20,7 @@ public class SellerController {
     public SellerController( SellerService sellerService) {
         this.sellerService = sellerService;
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{seller_id}")
     public ResponseEntity<Seller> getSeller(@PathVariable Integer id) throws Exception {
         Seller sellerUpdated = sellerService.getSellerById(id);
         return new ResponseEntity<>(sellerUpdated, HttpStatus.OK);
@@ -31,7 +31,7 @@ public class SellerController {
         Seller sellerUpdated = sellerService.updateSeller(id,seller);
         return new ResponseEntity<>(sellerUpdated, HttpStatus.OK);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/{seller_id}")
     public ResponseEntity<Service> addSeervice (@PathVariable Integer id,@RequestBody Service services) throws ChangeSetPersister.NotFoundException {
         Service service= sellerService.addService(id,services);
         return new ResponseEntity<>(service, HttpStatus.OK);
