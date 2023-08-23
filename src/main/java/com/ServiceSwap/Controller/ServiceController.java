@@ -38,7 +38,11 @@ public class ServiceController {
     public List<Service> getAllServices() {
         return services.allServices();
     }
-
+    @GetMapping("/{name}/{city}/{type}")
+    public ResponseEntity<List<Service>> getServices(@PathVariable String name, @PathVariable String city, @PathVariable String type){
+        List<Service> service = services.getServices(name, city, type);
+        return new ResponseEntity<>(service, HttpStatus.OK);
+    }
 
 
 }

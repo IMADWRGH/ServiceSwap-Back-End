@@ -26,8 +26,8 @@ private final PanelService panelService;
         this.panelService = panelService;
     }
     @GetMapping("/{customer_id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Integer id) throws Exception {
-        Customer customer=customerService.getCustomerById(id);
+    public ResponseEntity<Customer> getCustomer(@PathVariable Integer customer_id) throws Exception {
+        Customer customer=customerService.getCustomerById(customer_id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
