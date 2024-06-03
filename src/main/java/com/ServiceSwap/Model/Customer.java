@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id",updatable = false)
     private Integer id;
     @Lob

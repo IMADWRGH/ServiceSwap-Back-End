@@ -17,6 +17,7 @@ import java.util.Date;
 @Table(name = "admin")
 public class Admin {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id",updatable = false)
     private Integer id;
     @Column(name = "created_at")

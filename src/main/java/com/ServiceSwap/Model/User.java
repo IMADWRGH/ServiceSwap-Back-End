@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",updatable = false)
     private Integer id;
     @Column(name = "full_name",length = 50,nullable = false,columnDefinition = "VARCHAR(50) ")
@@ -39,19 +39,22 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Date dataUpdate;
-
+/////////////////Relations/////////////////////////////////
     //customer
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Customer customer;
     //seller
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Seller seller;
     //admin
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Admin admin;
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Manager manager;
 
 
 

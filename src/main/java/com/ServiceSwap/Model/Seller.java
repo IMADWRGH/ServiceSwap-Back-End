@@ -21,6 +21,7 @@ import java.util.List;
 @Table(name = "seller")
 public class Seller implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seller_id",updatable = false)
     private Integer id;
     @Lob
@@ -49,8 +50,8 @@ public class Seller implements UserDetails {
 
     //////relation//////////
     //user
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "seller_id")
+
     private User user;
     //service
     @OneToOne(mappedBy = "seller",cascade = CascadeType.ALL)
