@@ -1,7 +1,7 @@
 package com.ServiceSwap.Controller;
 
 import com.ServiceSwap.Model.Service;
-import com.ServiceSwap.Service.Services_Service;
+import com.ServiceSwap.Service.ServicesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,9 @@ import java.util.Optional;
 @RequestMapping(value="/api/services")
 @RestController
 public class ServiceController {
-    private final Services_Service services;
+    private final ServicesService services;
 
-    public ServiceController(Services_Service services) {
+    public ServiceController(ServicesService services) {
         this.services = services;
     }
 
